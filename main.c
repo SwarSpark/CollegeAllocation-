@@ -91,8 +91,12 @@ char* eligible_clg(float marks, char category[10]) {
             printf("\n\t\tEnter 'Y' for Yes otherwise just Enter 'N'\n");
             scanf(" %c", &interest);
             if (interest == 'Y') {
-                break;
+                break; // Return dynamically allocated string
             } 
+            if (interest != 'Y' && interest != 'N') {
+                printf("\t\tInvalid input. Please enter 'Y' or 'N'\t\t:");
+                i--; // Decrement i to repeat the loop for the same college
+            }
         }
         printf("\t\tYou have chosen %s\n", clg[i]);
         printf("\t\tCongrats!\n");
@@ -106,6 +110,7 @@ int main() {
     struct Student s1;
     char category[10];
     int gender, age;
+    int choice;
 
     printf("\n\n\n\n\t\t\t**Registration**\n\n");
     printf("\t\t\tEnter your id: ");
@@ -142,6 +147,33 @@ user:
 
         // Call the function to check eligible colleges
         eligible_clg(marks, category);
+
+        printf("\n \t\tNow, Enter the following details for seat confirmation\n\n");
+        printf("\t\tCandidate's First Name:");
+        scanf("%s", s1.n.fname);
+        printf("\t\tCandidate's Father's Name:");
+        scanf("%s", s1.n.mname);
+        printf("\t\tCandidate's Surname:");
+        scanf("%s", s1.n.lname);
+        printf("\t\tCandidate's Date of Birth (DD MM YYYY):");
+        scanf("%s %s %s", s1.birth.date, s1.birth.month, s1.birth.year);
+
+        printf("\n\n\n\t\tCongrats!! Your seat in the college is confirmed\n");
+
+        printf("\n\t\tYour FORM\n\n");
+        printf("\t\tCandidate's Full Name : %s %s %s\n", s1.n.lname, s1.n.mname, s1.n.fname);
+        printf("\t\tCandidate's Date of Birth : %s %s %s\n", s1.birth.date, s1.birth.month, s1.birth.year);
+        printf("\t\tCandidate's last year percentage : %f\n", marks);
+        printf("\t\tCandidate's Category : %s\n", category);
+        printf("\t\tCandidate's age : %d\n", age);
+
+        printf("\n\n\t\t1. Continue \t\t 2. Exit");
+        printf("\n\n\t\tEnter your choice:");
+        scanf("%d", &choice);
+        if (choice == 2) {
+            printf("\n\n\t\tThank You For Visiting Us.....!!!\n\n");
+            exit(0);
+        }
     } else {
         printf("\t\tInvalid username or password. Please try again.\n");
         goto user;
